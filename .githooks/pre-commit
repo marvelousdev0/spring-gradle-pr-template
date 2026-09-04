@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+# Get list of staged files
+staged_files="$(git diff --cached --name-only --diff-filter=ACMR)"
+if [ -z "$staged_files" ]; then
+  exit 0
+fi
+
+# Run spotless format on changed Java files only
+echo "[pre-commit] Formatting and linting Java files..."
+
+# Extract only Java files from staged changes
+java_files=$(echo "$staged_files" | grep '\.java$' || true)
+
+if [ -n "$java_files" ]; then
+  # Run spotlessApply on the entire project (it will only format changed files via git integration)
+  ./gradlew spotlessApply --quiet
+  
+  # Add formatted files back to staging
+  git add -A -- '*.java' '*.gradle' 2>/dev/null || true
+fi
+
+# Run spotlessCheck to validate all Java files
+if ! ./gradlew spotlessCheck --quiet; then
+  echo "[pre-commit] Spotless check failed. Please review formatting."
+  exit 1
+fi
+
+echo "[pre-commit] Java formatting and linting passed."
+exit 0
