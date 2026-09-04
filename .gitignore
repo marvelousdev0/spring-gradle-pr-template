@@ -1,0 +1,27 @@
+# Build and IDE
+.gradle/
+build/
+.idea/
+.classpath
+.project
+.settings/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
