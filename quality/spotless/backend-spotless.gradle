@@ -1,0 +1,14 @@
+spotless {
+    java {
+        target 'src/*/java/**/*.java'
+        googleJavaFormat('1.30.0')
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    format 'gradle', {
+        target '*.gradle', '**/*.gradle'
+        leadingTabsToSpaces(4)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
