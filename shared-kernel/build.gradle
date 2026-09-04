@@ -1,0 +1,13 @@
+/*
+ * Shared Kernel Module — Common utilities, exceptions, DTOs, and base classes
+ * shared across all modules in the application.
+ */
+
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    // Spring Framework essentials
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
